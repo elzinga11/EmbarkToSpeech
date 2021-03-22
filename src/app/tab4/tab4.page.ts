@@ -246,4 +246,7 @@ export class Tab4Page implements OnInit {
       }
     );
   }
+  close() {
+    this.modalCtrl.dismiss();
+  }
 }
