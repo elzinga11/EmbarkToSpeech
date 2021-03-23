@@ -65,9 +65,16 @@
             <!-- <img src="https://cdn0.iconfinder.com/data/icons/avatar-2/500/man-2-512.png"/> -->
             <img src="../../assets/icon/steven.jpg"/>
           </div>
-          <div class="chatting">
-            <div class="says">
+          <div class="chatting" (click) = "send('computerText')">
+            <div *ngIf = "!choiceComputerTrans" class="says">
+              <ion-icon name="language-outline" style= "float:right; color: gray" (click) = "send('choiceOne')"></ion-icon>
+
               <p>{{computerSentence}}</p>
+            </div>
+            <div *ngIf = "choiceComputerTrans" class="says">
+              <ion-icon name="language-outline" style= "float:right" (click) = "send('choiceOne')"></ion-icon>
+
+              <p>{{data.computerText}}</p>
             </div>
           </div>
         </div>
@@ -83,9 +90,17 @@
           <!-- <div *ngIf = "voiceText" class="mycommentmargin">
               <p>{{voiceText}}</p>
           </div> -->
-          <div *ngFor = "let voice of userVoiceText" class="mycommentmargin">
-            <p>{{voice}}</p>
-        </div>
+          <div *ngIf = "!choiceUserTrans">
+            <div *ngFor = "let voice of userVoiceText" class="mycommentmargin" (click) = "send('userText')">
+              <p>{{voice}}</p>
+          </div>
+          </div>
+          <div *ngIf = "choiceUserTrans">
+            <div *ngFor = "let voice of userVoiceTextTrans" class="mycommentmargin" (click) = "send('userText')">
+              <p>{{voice}}</p>
+          </div>
+          </div>
+          
         </div>
       </div>
     
@@ -112,22 +127,41 @@
   </ion-button>
 </ion-buttons>
 <hr>
-  <ion-card
-  (click)="onReply()">
-    <ion-card-content>
-      <ion-icon name="mic-circle-outline"></ion-icon>
+
+  <ion-card>
+    <ion-card-content *ngIf = "!choiceOneTrans; else choiceone">
+      <ion-icon name="language-outline" style= "float:right" (click) = "send('choiceOne')"></ion-icon>
       {{choiceOne}}
     </ion-card-content>
   </ion-card>
 
-  <ion-card
-  (click)="onReply()"
-  >
+  <ng-template #choiceone>
     <ion-card-content>
-      <ion-icon name="mic-circle-outline"></ion-icon>
+      <ion-icon name="language-outline" style= "float:right" (click) = "send('choiceOne')"></ion-icon>
+      {{data.firstChoice}}
+    </ion-card-content>
+  </ng-template>
+
+  <ion-card *ngIf = "choiceTwo !== ''">
+    <ion-card-content *ngIf = "!choiceTwoTrans; else choicetwo">
+      <ion-icon name="language-outline" style= "float:right" (click) = "send('choiceTwo')"></ion-icon>
+      {{choiceTwo}}
+    </ion-card-content>
+  </ion-card>
+
+  <ng-template #choicetwo>
+    <ion-card-content>
+      <ion-icon name="language-outline" style= "float:right" (click) = "send('choiceTwo')"></ion-icon>
+      {{data.secondChoice}}
+    </ion-card-content>
+  </ng-template>
+
+  <!-- <ion-card *ngIf = "choiceTwo !== ''">
+    <ion-card-content>
+      <ion-icon name="language-outline" style= "float:right" (click) = "send(choiceTwo)"></ion-icon>
       {{choiceTwo}}    
       </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 
   
 
@@ -211,3 +245,5 @@
          <p>Accuracy = {{score}}</p>
       </div>
     </div>
+
+    {{data.firstChoice}}

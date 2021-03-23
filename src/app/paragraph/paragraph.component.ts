@@ -40,11 +40,11 @@ export class ParagraphComponent implements OnInit {
 
   langTo = new FormControl('en');
 
-  data: Solution = {
-    title: '',
-    description: '',
-    detail: ''
-  };
+  // data: Solution = {
+  //   title: '',
+  //   description: '',
+  //   detail: ''
+  // };
 
   constructor(private google: GoogletranslateService , private solution: SolutionService, private recordAudio: RecordAudio, private checkSentence: CheckSentence) {
     this.videoUrl = this.videoBase + this.videoTime[0];
@@ -100,7 +100,7 @@ export class ParagraphComponent implements OnInit {
   num = this.checkSentence.checkPercent(this.testWord1,this.testWord2);
 
   ngOnInit(): void {
-    this.solution.getSolution().subscribe(res => this.data = res);
+    // this.solution.getSolution().subscribe(res => this.data = res);
     this.translateBtn = document.getElementById('translatebtn');
     console.log(this.translateBtn);
     this.recordAudio.voiceActiveSectionDisabledChanged.subscribe(
@@ -203,48 +203,48 @@ export class ParagraphComponent implements OnInit {
 
   private translateBtn: any;
 
-  send(paragraphSel: string) {
+//   send(paragraphSel: string) {
 
-    if(paragraphSel === 'userAudio'){
-      paragraphSel = this.voiceText;
-      console.log(paragraphSel);
-    }
-    else if(paragraphSel === 'brown'){
-      paragraphSel = this.practiceParagraphBrown[this.sentenceCounter];
-      console.log(paragraphSel);
+//     if(paragraphSel === 'userAudio'){
+//       paragraphSel = this.voiceText;
+//       console.log(paragraphSel);
+//     }
+//     else if(paragraphSel === 'brown'){
+//       paragraphSel = this.practiceParagraphBrown[this.sentenceCounter];
+//       console.log(paragraphSel);
 
-    }
-    else if(paragraphSel === 'neighbor'){
-      paragraphSel = this.practiceParagraphNeighbor[this.sentenceCounter -1];
-      console.log(paragraphSel);
+//     }
+//     else if(paragraphSel === 'neighbor'){
+//       paragraphSel = this.practiceParagraphNeighbor[this.sentenceCounter -1];
+//       console.log(paragraphSel);
 
-    }
-    else{
-      paragraphSel = 'Could not translate';
-      console.log(paragraphSel);
-    }
+//     }
+//     else{
+//       paragraphSel = 'Could not translate';
+//       console.log(paragraphSel);
+//     }
 
-    const googleObj: GoogleObj = {
-      q: [paragraphSel, this.data.description, this.data.detail],
-      target: this.langTo.value
-    };
+//     const googleObj: GoogleObj = {
+//       q: [paragraphSel, this.data.description, this.data.detail],
+//       target: this.langTo.value
+//     };
 
-    this.translateBtn.disabled = true;
+//     this.translateBtn.disabled = true;
 
-    this.google.translate(googleObj).subscribe(
-      (res: any) => {
-        this.translateBtn.disabled = false;
-        this.data = {
-          title: res.data.translations[0].translatedText.replace(/&#39;/g, "'"),
-          // title: res.data.translations[0].translatedText,
-        	description: res.data.translations[1].translatedText,
-        	detail: res.data.translations[2].translatedText
-        };
-        console.log(this.data);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
+//     this.google.translate(googleObj).subscribe(
+//       (res: any) => {
+//         this.translateBtn.disabled = false;
+//         this.data = {
+//           title: res.data.translations[0].translatedText.replace(/&#39;/g, "'"),
+//           // title: res.data.translations[0].translatedText,
+//         	description: res.data.translations[1].translatedText,
+//         	detail: res.data.translations[2].translatedText
+//         };
+//         console.log(this.data);
+//       },
+//       err => {
+//         console.log(err);
+//       }
+//     );
+//   }
 }

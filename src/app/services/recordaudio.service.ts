@@ -12,15 +12,17 @@ declare const annyang: any;
   })
 export class RecordAudio{
   userVoiceText = [];
-
+  userVoiceRec: any;
   voiceActiveSectionDisabled: boolean = true;
 	voiceActiveSectionError: boolean = false;
 	voiceActiveSectionSuccess: boolean = false;
 	voiceActiveSectionListening: boolean = false;
 	voiceText: any;
-    voiceTextReady: boolean = false;
-    public voiceTextReadyObs = new Observable<boolean>();
-    language: string = 'en';
+  voiceTextReady: boolean = false;
+  public voiceTextReadyObs = new Observable<boolean>();
+  language: string = 'en';
+
+	userVoiceRecChanged = new EventEmitter<any>();
 	userVoiceTextChanged = new EventEmitter<any[]>();
   voiceActiveSectionDisabledChanged = new EventEmitter<boolean>();
 	voiceActiveSectionErrorChanged = new EventEmitter<boolean>();
@@ -72,10 +74,12 @@ export class RecordAudio{
 
 		annyang.addCallback('result', (userSaid) => {
 			this.ngZone.run(() => this.voiceActiveSectionError = false, this.voiceActiveSectionErrorChanged.emit(this.voiceActiveSectionError));
-
+      this.userVoiceRec = userSaid[0];
+      this.userVoiceRecChanged.emit(this.userVoiceRec);
 			let queryText: any = userSaid[0];
 
 			annyang.abort();
+
 
       this.voiceText = queryText;
       this.voiceTextChanged.emit(this.voiceText);
