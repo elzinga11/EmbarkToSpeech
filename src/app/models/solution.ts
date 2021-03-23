@@ -1,8 +1,9 @@
 
 export interface Solution {
-  title: string;
-  description: string;
-  detail: string;
+  firstChoice: string;
+  secondChoice: string;
+  userText: string;
+  computerText: string;
 }
 
 export interface GoogleObj {

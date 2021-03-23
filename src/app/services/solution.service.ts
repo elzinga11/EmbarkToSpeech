@@ -9,9 +9,10 @@ import { Solution } from '../models/solution';
 })
 export class SolutionService {
   data = {
-    title: '',
-    description: '',
-    detail: '',
+    firstChoice: '',
+    secondChoice: '',
+    userText: '',
+    computerText: ''
   };
 
   constructor(private http: HttpClient) { }
@@ -20,9 +21,10 @@ export class SolutionService {
     return this.http.get<Solution>('assets/data.json')
       .pipe(
         map(res => {
-          this.data.title = res.title;
-          this.data.description = res.description;
-          this.data.detail = res.detail;
+          this.data.firstChoice = res.firstChoice;
+          this.data.secondChoice = res.secondChoice;
+          this.data.userText = res.userText;
+          this.data.computerText = res.computerText;
           return this.data;
         })
       );

@@ -29,10 +29,23 @@ export class Tab4Page implements OnInit {
   langFrom = new FormControl('en');
   guideSentence = 'Practice saying...';
   videoTimeJapanese = ["0,1","2,7", "8,10", "11,12", "13,14", "15,22"];
+<<<<<<< HEAD
+  firstChoiceTrans = '';
+  secondChoiceTrans = '';
+  promptTrans = '';
+  userVoiceTextTrans = [];
+  
+  //Toggle translation 
+  choiceOneTrans = false;
+  choiceTwoTrans = false;
+  choiceComputerTrans = false;
+  choiceUserTrans = false;
+=======
   showAccuracy: boolean;
   langSwitch: boolean;
 
 
+>>>>>>> 219edfd8af9b14b012a6b51b3b43666d80ab814d
 
   videoUrl: SafeResourceUrl;
   videoBase = "../../assets/videos/englishpractice.mp4#t=";
@@ -42,9 +55,10 @@ export class Tab4Page implements OnInit {
   langTo = new FormControl('en');
 
   data: Solution = {
-    title: '',
-    description: '',
-    detail: ''
+    firstChoice: '',
+    secondChoice: '',
+    userText: '',
+    computerText: ''
   };
 
   constructor(private modalCtrl: ModalController, private google: GoogletranslateService , private solution: SolutionService, private recordAudio: RecordAudio, private checkSentence: CheckSentence) {
@@ -61,6 +75,7 @@ export class Tab4Page implements OnInit {
   computerSentence: string = this.convoEnglishCom[0];
   choiceOne: string = this.convoEnglishUser[0];
   choiceTwo: string = '';
+  
   practiceParagraphBrownAudio = ['../assets/soundFile/Me llamo Benjamin Brown.mp3',
                                 '../assets/soundFile/Soy de California, en los Estados Unidos. Este barrio es muy bonito. Cuanto tiempo lleva aqui.mp3',
                                 '../assets/soundFile/Como se llama su esposa.mp3',
@@ -111,7 +126,7 @@ export class Tab4Page implements OnInit {
     );
 
     this.recordAudio.userVoiceTextChanged.subscribe(
-      (change: any[]) => this.userVoiceText = change
+      (change: any[]) => this.userVoiceText = change, this.send(''), this.userVoiceTextTrans.push(this.data.userText)
     );
 
     this.recordAudio.voiceTextReadyChanged.subscribe(
@@ -207,29 +222,33 @@ export class Tab4Page implements OnInit {
 
   private translateBtn: any;
 
+  // updateUserTextTrans(){
+  //   for(var i = 0; i < this.userVoiceTextTrans.length; i++){
+  //     this.userVoiceTextTrans[i] = this.send(i.toString());
+  //   }
+  // }
+  
   send(paragraphSel: string) {
-
-    if(paragraphSel === 'userAudio'){
-      paragraphSel = this.voiceText;
-      console.log(paragraphSel);
+    if(paragraphSel === 'choiceOne'){
+      console.log(this.choiceOneTrans)
+      this.choiceOneTrans = !this.choiceOneTrans;
     }
-    else if(paragraphSel === 'brown'){
-      paragraphSel = this.practiceParagraphBrown[this.sentenceCounter];
-      console.log(paragraphSel);
-
+    if(paragraphSel === 'choiceTwo'){
+      this.choiceTwoTrans = !this.choiceTwoTrans;
     }
-    else if(paragraphSel === 'neighbor'){
-      paragraphSel = this.practiceParagraphNeighbor[this.sentenceCounter -1];
-      console.log(paragraphSel);
-
+    if(paragraphSel === 'computerText'){
+      this.choiceComputerTrans = !this.choiceComputerTrans;
     }
-    else{
-      paragraphSel = 'Could not translate';
-      console.log(paragraphSel);
+    if(paragraphSel === 'userText'){
+      console.log(this.choiceUserTrans)
+      this.choiceUserTrans = !this.choiceUserTrans;
     }
 
+    if(this.voiceText === undefined){
+      this.voiceText = '';
+    }
     const googleObj: GoogleObj = {
-      q: [paragraphSel, this.data.description, this.data.detail],
+      q: [this.choiceOne, this.choiceTwo, this.voiceText, this.computerSentence],
       target: this.langTo.value
     };
 
@@ -239,10 +258,10 @@ export class Tab4Page implements OnInit {
       (res: any) => {
         this.translateBtn.disabled = false;
         this.data = {
-          title: res.data.translations[0].translatedText.replace(/&#39;/g, "'"),
-          // title: res.data.translations[0].translatedText,
-        	description: res.data.translations[1].translatedText,
-        	detail: res.data.translations[2].translatedText
+          firstChoice: res.data.translations[0].translatedText.replace(/&#39;/g, "'"),
+        	secondChoice: res.data.translations[1].translatedText,
+        	userText: res.data.translations[2].translatedText,
+          computerText: res.data.translations[3].translatedText
         };
         console.log(this.data);
       },
@@ -251,10 +270,17 @@ export class Tab4Page implements OnInit {
       }
     );
   }
+<<<<<<< HEAD
+
+=======
   close() {
     this.modalCtrl.dismiss();
   }
+<<<<<<< HEAD
   onSwitch() {
     this.langSwitch = !this.langSwitch;
   }
+=======
+>>>>>>> 219edfd8af9b14b012a6b51b3b43666d80ab814d
+>>>>>>> 7a70534fd3ad5faa513465fba9c077e696d07906
 }

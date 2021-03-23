@@ -74,6 +74,7 @@
 
 
 
+<<<<<<< HEAD
 <div *ngIf="!langSwitch">
   <div class="line-bc">
     <!--chat start-->
@@ -96,6 +97,53 @@
       <div class="chatting">
         <div class="says">
           <p>{{computerSentence}}</p>
+=======
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+
+    <!-- <ion-grid no-padding>
+      <ion-row no-padding>
+        <ion-col size="10" no-padding>
+          <ion-card no-padding>
+            <ion-card-content no-padding>
+              CP side conversation
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="2">
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+
+
+
+  <video [src]="videoUrl" type="video/mp4" width="100%" controls autoplay playsinline webkit-playsinline>
+  </video>
+
+
+        <!--CP side comment start-->
+        <div class="balloon6">
+          <div class="faceicon">
+            <!-- <img src="https://cdn0.iconfinder.com/data/icons/avatar-2/500/man-2-512.png"/> -->
+            <img src="../../assets/icon/steven.jpg"/>
+          </div>
+          <div class="chatting" (click) = "send('computerText')">
+            <div *ngIf = "!choiceComputerTrans" class="says">
+              <ion-icon name="language-outline" style= "float:right; color: gray" (click) = "send('choiceOne')"></ion-icon>
+
+              <p>{{computerSentence}}</p>
+            </div>
+            <div *ngIf = "choiceComputerTrans" class="says">
+              <ion-icon name="language-outline" style= "float:right" (click) = "send('choiceOne')"></ion-icon>
+
+              <p>{{data.computerText}}</p>
+            </div>
+          </div>
+>>>>>>> 7a70534fd3ad5faa513465fba9c077e696d07906
         </div>
       </div>
     </div>
@@ -111,12 +159,27 @@
         <!-- <div *ngIf = "voiceText" class="mycommentmargin">
               <p>{{voiceText}}</p>
           </div> -->
+<<<<<<< HEAD
         <div *ngFor="let voice of userVoiceText" class="mycommentmargin">
           <p>{{voice}}</p>
+=======
+          <div *ngIf = "!choiceUserTrans">
+            <div *ngFor = "let voice of userVoiceText" class="mycommentmargin" (click) = "send('userText')">
+              <p>{{voice}}</p>
+          </div>
+          </div>
+          <div *ngIf = "choiceUserTrans">
+            <div *ngFor = "let voice of userVoiceTextTrans" class="mycommentmargin" (click) = "send('userText')">
+              <p>{{voice}}</p>
+          </div>
+          </div>
+          
+>>>>>>> 7a70534fd3ad5faa513465fba9c077e696d07906
         </div>
       </div>
     </div>
 
+<<<<<<< HEAD
   </div>
   <!--chat end-->
   <hr>
@@ -128,16 +191,61 @@
   <ion-card (click)="onReply()">
     <ion-card-content>
       <ion-icon name="mic-circle-outline"></ion-icon>
+=======
+      
+</div><!--chat end-->
+<hr>
+<ion-buttons *ngIf="voiceActiveSectionDisabled; else voicesection;">
+  <ion-button  color="danger" type="button"
+    (click)="onStartVoiceRecognition()">Record
+  </ion-button>
+</ion-buttons>
+<hr>
+
+  <ion-card>
+    <ion-card-content *ngIf = "!choiceOneTrans; else choiceone">
+      <ion-icon name="language-outline" style= "float:right" (click) = "send('choiceOne')"></ion-icon>
+>>>>>>> 7a70534fd3ad5faa513465fba9c077e696d07906
       {{choiceOne}}
     </ion-card-content>
   </ion-card>
 
+<<<<<<< HEAD
   <ion-card (click)="onReply()">
     <ion-card-content>
       <ion-icon name="mic-circle-outline"></ion-icon>
       {{choiceTwo}}
     </ion-card-content>
   </ion-card>
+=======
+  <ng-template #choiceone>
+    <ion-card-content>
+      <ion-icon name="language-outline" style= "float:right" (click) = "send('choiceOne')"></ion-icon>
+      {{data.firstChoice}}
+    </ion-card-content>
+  </ng-template>
+
+  <ion-card *ngIf = "choiceTwo !== ''">
+    <ion-card-content *ngIf = "!choiceTwoTrans; else choicetwo">
+      <ion-icon name="language-outline" style= "float:right" (click) = "send('choiceTwo')"></ion-icon>
+      {{choiceTwo}}
+    </ion-card-content>
+  </ion-card>
+
+  <ng-template #choicetwo>
+    <ion-card-content>
+      <ion-icon name="language-outline" style= "float:right" (click) = "send('choiceTwo')"></ion-icon>
+      {{data.secondChoice}}
+    </ion-card-content>
+  </ng-template>
+
+  <!-- <ion-card *ngIf = "choiceTwo !== ''">
+    <ion-card-content>
+      <ion-icon name="language-outline" style= "float:right" (click) = "send(choiceTwo)"></ion-icon>
+      {{choiceTwo}}    
+      </ion-card-content>
+  </ion-card> -->
+>>>>>>> 7a70534fd3ad5faa513465fba9c077e696d07906
 
   <!-- <div class = "container">
   <button (click) = "onStart()">Start Practice
@@ -243,6 +351,7 @@
   <button id="translatebtn" (click)="send('brown')" style="margin-left: auto;">Translate</button>
 </div>
 
+<<<<<<< HEAD
 
 
 
@@ -273,3 +382,43 @@
 </ion-footer> -->
 
 
+=======
+<<<<<<< HEAD
+         <div>
+           <button (click) = "onListenToSentence()">Listen to sentence</button>
+           <button id="translatebtn" (click) = "send('brown')" style="margin-left: auto;">Translate</button>
+         </div>
+         <p>Accuracy = {{score}}</p>
+      </div>
+    </div>
+
+    {{data.firstChoice}}
+=======
+    <ion-footer>
+      <ion-row text-center>
+        <!-- <ion-col size="5"></ion-col> -->
+        <ion-col offset="2" text-center>
+          <div *ngIf="voiceActiveSectionDisabled; else voicesection;">
+            <button type="button" (click)="onStartVoiceRecognition(); onStart()">
+              <img src="../../assets/icon/record.png" height="40px" width="40px">
+            </button>
+            </div>
+        </ion-col>
+        <ion-col ></ion-col>
+            <button (click) = "onCheck()" *ngIf="showAccuracy">Check
+            </button>
+            <div *ngIf="!showAccuracy">
+              <div id="myItem1"></div>
+              <script>
+                /* construct manually */
+                var bar1 = new ldBar("#myItem1");
+                /* ldBar stored in the element */
+                var bar2 = document.getElementById('myItem1').ldBar;
+                bar1.set(60);
+              </script>
+             <p>Accuracy = {{score}}</p>
+            </div>
+      </ion-row>
+    </ion-footer>
+>>>>>>> 219edfd8af9b14b012a6b51b3b43666d80ab814d
+>>>>>>> 7a70534fd3ad5faa513465fba9c077e696d07906
