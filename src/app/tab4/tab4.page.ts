@@ -30,6 +30,7 @@ export class Tab4Page implements OnInit {
   guideSentence = 'Practice saying...';
   videoTimeJapanese = ["0,1","2,7", "8,10", "11,12", "13,14", "15,22"];
   showAccuracy: boolean;
+  langSwitch: boolean;
 
 
 
@@ -49,6 +50,7 @@ export class Tab4Page implements OnInit {
   constructor(private modalCtrl: ModalController, private google: GoogletranslateService , private solution: SolutionService, private recordAudio: RecordAudio, private checkSentence: CheckSentence) {
     this.videoUrl = this.videoBase + this.videoTime[0];
     this.showAccuracy = true;
+    this.langSwitch = false;
    }
   
   
@@ -251,5 +253,8 @@ export class Tab4Page implements OnInit {
   }
   close() {
     this.modalCtrl.dismiss();
+  }
+  onSwitch() {
+    this.langSwitch = !this.langSwitch;
   }
 }
